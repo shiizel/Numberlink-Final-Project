@@ -6,6 +6,7 @@ public class Square
   private int y;
   private int row;
   private int col;
+  private boolean isEmpty = true;
 
     public Square(int row, int col)
     {
@@ -16,7 +17,31 @@ public class Square
     }
     public void show()
     {
-      square(x, y, LENGTH);
+      line(x, y, x + getLength(), y);
+      line(x + getLength(), y, x + getLength(), y + getLength());
+      line(x + getLength(), y + getLength(), x, y + getLength());
+      line(x, y + getLength(), x, y);
+    }
+
+    public int getRow()
+    {
+      return row;
+    }
+    public int getCol()
+    {
+      return col;
+    }
+    public void setEmpty(boolean e)
+    {
+      isEmpty = e;
+    }
+    public int getX()
+    {
+      return x;
+    }
+    public int getY()
+    {
+      return y;
     }
 }
 public static int getLength()
