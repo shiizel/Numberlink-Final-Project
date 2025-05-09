@@ -102,7 +102,8 @@ public void draw()
     int c = currNeighbors.get(i).getCol();
     int[] rgb = currentSquare.getRGB();
 
-    // specifically this part
+    // specifically this part 
+    // i think because neighbors are added and never deleted
     grid[r][c] = new ActiveSquare(r, c, rgb);
   }
 }
