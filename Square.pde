@@ -27,7 +27,7 @@ public class Square
       line(x, y + getLength(), x, y);
     }
     // changed this to be applicable to this game
-    // (adds empty neighbors)
+    // (adds empty neighbors only)
     public void addNeighbors()
     {
       // left
