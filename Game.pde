@@ -63,6 +63,13 @@ public void draw()
         grid[r][c].addNeighbors();
       }
     }
+
+
+
+
+
+
+    // probably rewrite in ActiveSquare class
     int minMoves = 5;
     for(int r = 0; r < rows; r++)
     {
