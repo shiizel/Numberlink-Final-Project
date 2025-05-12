@@ -30,22 +30,22 @@ public class Square
     // (adds empty neighbors only)
     public void addNeighbors()
     {
-      // left
+      // top
       if(row > 0 && grid[row - 1][col].isEmpty)
       {
         neighbors.add(grid[row - 1][col]);
       }
-      // right
+      // bottom
       if(row < 3 && grid[row + 1][col].isEmpty)
       {
         neighbors.add(grid[row + 1][col]);
       }
-      // top
+      // left
       if(col > 0 && grid[row][col - 1].isEmpty)
       {
         neighbors.add(grid[row][col - 1]);
       }
-      // bottom
+      // right
       if(col < 3 && grid[row][col + 1].isEmpty)
       {
         neighbors.add(grid[row][col + 1]);
