@@ -1,4 +1,4 @@
-// probably could've just made all blocks have a color and have white be empty but whatever
+// probably could've just made all blocks have a color and have white be empty
 
 public class ActiveBlock extends Block
 {
