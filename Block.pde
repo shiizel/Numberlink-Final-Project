@@ -1,5 +1,4 @@
 public class Block {
-  //general
   private int x;
   private int y;
   private int thisRow;
@@ -8,8 +7,7 @@ public class Block {
   
   private boolean isEnd = false;
 
-  //Maze variables
-  private boolean visitedByMaze = false;
+  private boolean visitedByAlgo = false;
   private ArrayList<Block> neighbors = new ArrayList<Block>();
 
   Block(int row, int col) {
@@ -24,7 +22,7 @@ public class Block {
       line(x + size, y, x + size, y + size);
       line(x + size, y + size, x, y + size);
       line(x, y + size, x, y);
-      if (visitedByMaze && !isMazeFinished) 
+      if (visitedByAlgo && !isGridFinished) 
       {
       noStroke();
       fill(255, 50, 255, 95);
