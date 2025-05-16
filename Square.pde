@@ -1,93 +1,78 @@
-import java.util.ArrayList;
-private static final int LENGTH = 50;
-
-public class Square
-{
+public class Block {
+  //general
   private int x;
   private int y;
-  private int row;
-  private int col;
+  private int thisRow;
+  private int thisCol;
   private boolean isEmpty = true;
-  private ArrayList<Square> neighbors;
   
-    public Square(int row, int col)
-    {
-      x = row * LENGTH;
-      y = col * LENGTH;
-      this.row = row;
-      this.col = col;
-      neighbors = new ArrayList<Square>();
-    }
-    
-    public void show()
-    {
-      line(x, y, x + getLength(), y);
-      line(x + getLength(), y, x + getLength(), y + getLength());
-      line(x + getLength(), y + getLength(), x, y + getLength());
-      line(x, y + getLength(), x, y);
-    }
-    // changed this to be applicable to this game
-    // (adds empty neighbors only)
-    public void addNeighbors()
-    {
-      // top
-      if(row > 0 && grid[row - 1][col].isEmpty)
+  private boolean isEnd = false;
+
+  //Maze variables
+  private boolean visitedByMaze = false;
+  private ArrayList<Block> neighbors = new ArrayList<Block>();
+
+  Block(int row, int col) {
+    x = row * size;
+    y = col * size;
+    thisRow = row;
+    thisCol = col;
+  }
+
+  public void show() {
+      line(x, y, x + size, y);
+      line(x + size, y, x + size, y + size);
+      line(x + size, y + size, x, y + size);
+      line(x, y + size, x, y);
+      if (visitedByMaze && !isMazeFinished) 
       {
-        neighbors.add(grid[row - 1][col]);
-      }
-      // bottom
-      if(row < 3 && grid[row + 1][col].isEmpty)
-      {
-        neighbors.add(grid[row + 1][col]);
-      }
-      // left
-      if(col > 0 && grid[row][col - 1].isEmpty)
-      {
-        neighbors.add(grid[row][col - 1]);
-      }
-      // right
-      if(col < 3 && grid[row][col + 1].isEmpty)
-      {
-        neighbors.add(grid[row][col + 1]);
-      }
+      noStroke();
+      fill(255, 50, 255, 95);
+      //fill(0, 255, 255);
+      rect(x, y, size, size);
+      stroke(0);
     }
-    public void resetNeighbors()
-    {
-      neighbors = new ArrayList<Square>();
+  }
+  
+  public void addNeighbors() 
+  {
+    if (thisRow > 0 && blocks[thisRow - 1][thisCol].isEmpty) { 
+      //we are not in top row. Add top neighbor.
+      neighbors.add(blocks[thisRow - 1][thisCol]); //top neighbor
     }
-    
-    
-    public int getRow()
-    {
-      return row;
+    if (thisCol < cols - 1 && blocks[thisRow][thisCol + 1].isEmpty) { 
+      //we are not in rightmost column. Add right column.
+      neighbors.add(blocks[thisRow][thisCol + 1]); //right neighbor
     }
-    public int getCol()
-    {
-      return col;
+    if (thisRow < rows - 1 && blocks[thisRow + 1][thisCol].isEmpty) { 
+      //we are not in bottom row. Add bottom neighbor.
+      neighbors.add(blocks[thisRow + 1][thisCol]); //bottom neighbor
     }
-    public void setEmpty(boolean e)
-    {
-      isEmpty = e;
+    if (thisCol > 0 && blocks[thisRow][thisCol - 1].isEmpty) { //we are not in leftmost column. Add left column.
+      neighbors.add(blocks[thisRow][thisCol - 1]); //right neighbor
     }
-    public int getX()
-    {
-      return x;
-    }
-    public int getY()
-    {
-      return y;
-    }
-    public ArrayList<Square> getNeighbors()
-    {
-      return neighbors;
-    }
-    public void print()
-    {
-      System.out.println("Row: " + row + "\nCol: " + col);
-    }
+  }
+  public boolean isEmpty()
+  {
+    return isEmpty;
+  }
+  public boolean isEnd()
+  {
+    return isEnd;
+  }
+  
+  public void print()
+  {
+    System.out.println("Row: " + thisRow + "\nCol: " + thisCol);
+  }
+  public int getX()
+  {
+    return x;
+  }
+  public int getY()
+  {
+    return y;
+  }
+  
+  
 }
-public static int getLength()
-{
-  return LENGTH;
-}
-    
