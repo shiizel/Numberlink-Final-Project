@@ -1,6 +1,5 @@
-https://www.youtube.com/watch?v=zsG2ceOlY6I
+// https://www.youtube.com/watch?v=zsG2ceOlY6I
 
-// global variables
 private int cols;
 private int rows;
 private int size = 50;
@@ -10,13 +9,10 @@ private ActiveBlock[][] solution;
 
 private Solver s;
 
-// global variables for maze
 Block currentBlock;
-ArrayList<Block> mazeStack = new ArrayList<Block>();
-boolean isMazeFinished = false;
+boolean isGridFinished = false;
 
-public void setup() 
-{
+public void setup() {
   size(200, 200);
   rows = floor(height / size);
   cols = floor(width / size);
@@ -72,7 +68,7 @@ public void setup()
   }
   
   currentBlock = blocks[0][0];
-  currentBlock.visitedByMaze = true;
+  currentBlock.visitedByAlgo = true;
 
   frameRate(10);
   
@@ -117,6 +113,11 @@ public void draw()
           square(a.x, a.y, size);
         }
     }
+  }
+  */
+}
+
+
   }
   */
 }
