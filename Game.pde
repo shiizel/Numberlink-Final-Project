@@ -3,6 +3,8 @@
 private int cols;
 private int rows;
 private int size = 50;
+private int[] currcolor = new int[3];
+
 public Block[][] blocks;
 // store for generator
 private ActiveBlock[][] solution;
@@ -118,7 +120,6 @@ public void draw()
 
 void mouseClicked()
 {
-  int[] currcolor = new int[3];
     for(int r =0; r<4;r++)
     {
         for(int c=0; c<4; c++)
