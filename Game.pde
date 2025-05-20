@@ -117,8 +117,3 @@ public void draw()
   */
 }
 
-
-  }
-  */
-}
-
