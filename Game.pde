@@ -124,7 +124,7 @@ void mouseClicked()
     {
         for(int c=0; c<4; c++)
         {
-          if(blocks[r][c] instanceof ActiveBlock)
+          if(blocks[r][c] instanceof ActiveBlock && blocks[r][c].isEnd())
           {
             ActiveBlock a = (ActiveBlock)blocks[r][c];
             if(mouseX >= a.getX() && mouseX<=a.getX()+size && mouseY>=a.getY() && mouseY<=a.getY()+size)
