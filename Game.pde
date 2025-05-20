@@ -115,5 +115,41 @@ public void draw()
     }
   }
   */
+
+void mouseClicked()
+{
+  int[] currcolor = new int[3];
+    for(int r =0; r<4;r++)
+    {
+        for(int c=0; c<4; c++)
+        {
+          if(blocks[r][c] instanceof ActiveBlock)
+          {
+            ActiveBlock a = (ActiveBlock)blocks[r][c];
+            if(mouseX >= a.getX() && mouseX<=a.getX()+size && mouseY>=a.getY() && mouseY<=a.getY()+size)
+            {
+               currcolor = a.getRGB();
+             
+            }
+            
+          }
+           if(!blocks[r][c].isEnd)
+        {
+          Block b = blocks[r][c];
+          if(mouseX >= b.getX() && mouseX<=b.getX()+size && mouseY>=b.getY() && mouseY<=b.getY()+size)
+          {
+            blocks[r][c] = new ActiveBlock(r, c, currcolor);
+            fill(currcolor[0], currcolor[1], currcolor[2]);
+            square(b.getX(), b.getY(), size);
+          }
+        }
+         
+        }
+        
+        
+        
+        
+    }
+
 }
 
