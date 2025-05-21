@@ -1,37 +1,68 @@
-public class Block {
+public class Block 
+{
   private int x;
   private int y;
   private int thisRow;
   private int thisCol;
-  private boolean isEmpty = true;
-  
-  private boolean isEnd = false;
+  private boolean isEmpty;
+  private boolean isEnd;
+  private int[] rgb;
 
-  private boolean visitedByAlgo = false;
   private ArrayList<Block> neighbors = new ArrayList<Block>();
 
-  Block(int row, int col) {
+  public Block(int row, int col, int[] rgb, boolean isEnd) 
+  {
     x = row * size;
     y = col * size;
     thisRow = row;
     thisCol = col;
-  }
-
-  public void show() {
-      line(x, y, x + size, y);
-      line(x + size, y, x + size, y + size);
-      line(x + size, y + size, x, y + size);
-      line(x, y + size, x, y);
-      if (visitedByAlgo && !isGridFinished) 
-      {
-      noStroke();
-      fill(255, 50, 255, 95);
-      //fill(0, 255, 255);
-      rect(x, y, size, size);
-      stroke(0);
+    this.rgb = rgb;
+    this.isEnd = isEnd;
+    if(rgb[0] == 255 && rgb[1] == 255 && rgb[2] == 255)
+    {
+      isEmpty = true;
+    }
+    else
+    {
+      isEmpty = false;
     }
   }
-  
+
+  public Block(int row, int col, int[] rgb) 
+  {
+    x = row * size;
+    y = col * size;
+    thisRow = row;
+    thisCol = col;
+    this.rgb = rgb;
+    this.isEnd = false;
+    if(rgb[0] == 255 && rgb[1] == 255 && rgb[2] == 255)
+    {
+      isEmpty = true;
+    }
+    else
+    {
+      isEmpty = false;
+    }
+  }
+
+  // from maze tutorial
+  public void show() 
+  {
+    strokeWeight(4);
+    /*
+    line(x, y, x + size, y);
+    line(x + size, y, x + size, y + size);
+    line(x + size, y + size, x, y + size);      
+    line(x, y + size, x, y);
+    noStroke();
+    fill(0, 0, 0, 0);
+    //fill(0, 255, 255);
+    */
+    rect(x, y, size, size);
+  }
+
+  // from maze tutorial
   public void addNeighbors() 
   {
     if (thisRow > 0 && blocks[thisRow - 1][thisCol].isEmpty) { 
@@ -48,6 +79,20 @@ public class Block {
     }
     if (thisCol > 0 && blocks[thisRow][thisCol - 1].isEmpty) { //we are not in leftmost column. Add left column.
       neighbors.add(blocks[thisRow][thisCol - 1]); //right neighbor
+    }
+  }
+
+
+
+  public boolean sameColor(Block b)
+  {
+    if(rgb[0] == b.rgb[0] && rgb[1] == b.rgb[1] && rgb[2] == b.rgb[2])
+    {
+      return true;
+    }
+    else
+    {
+      return false;
     }
   }
   public boolean isEmpty()
@@ -71,6 +116,16 @@ public class Block {
   {
     return y;
   }
-  
-  
+  public int getRow()
+  {
+    return thisRow;
+  }
+  public int getCol()
+  {
+    return thisCol;
+  }
+  public int[] getRGB()
+  {
+    return rgb;
+  }
 }
