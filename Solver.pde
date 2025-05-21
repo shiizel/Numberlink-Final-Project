@@ -87,14 +87,14 @@ public class Solver
           }
         }
 
-        // Found matching end
+        // found matching pair
         else if (nextBlock.sameColor(start) && nextBlock.isEnd() && (nextRow != start.getRow() || 
         nextCol != start.getCol())) 
         {
           solution[nextRow][nextCol] = new Block(nextRow, nextCol, start.getRGB());
 
-          // Recurse on the next flow
-          // goes through initSolver again and searches for another end node
+          // recurse through next flow --> goes through initSolver 
+          // again and searches for another end node
           Block[][] result = completeFlow();
           if (result != null)
           {
