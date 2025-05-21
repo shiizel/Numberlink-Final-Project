@@ -1,5 +1,6 @@
 public class Solver 
 {
+  // its a little bit funky but i will fix
   private Block[][] grid;
   private int[][] turns = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
   private int rows;
