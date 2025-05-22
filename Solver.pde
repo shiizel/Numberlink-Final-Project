@@ -163,9 +163,16 @@ public class Solver
     }
   }
 
-  private boolean inBounds(int r, int c) 
+   private boolean inBounds(int r, int c) 
   {
-    return 0 <= r && r < rows && 0 <= c && c < cols;
+    if(0 <= r && r < rows && 0 <= c && c < cols)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   public Block[][] completeFlow() 
