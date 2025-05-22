@@ -265,8 +265,8 @@ public class Solver
         {
           solution[nextRow][nextCol] = new Block(nextRow, nextCol, start.getRGB());
 
-          // Recurse on the next flow
-          // goes through initSolver again and searches for another end node
+          // recurse on the next flow
+          // goes through completeFlow again and searches for another end node
           Block[][] result = completeFlow();
           if (result != null)
           {
@@ -302,6 +302,5 @@ public class Solver
     }
     return numBlocksFilled;
   }
-  
 }
 */
