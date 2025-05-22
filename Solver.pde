@@ -1,3 +1,6 @@
+// only checks basic constraints so it takes a while to solve
+// ex. no g(n) or h(n) to find the path with the least number of moves
+
 public class Solver
 {
   private Block[][] grid;
