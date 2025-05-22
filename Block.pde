@@ -12,8 +12,10 @@ public class Block
 
   public Block(int row, int col, int[] rgb, boolean isEnd) 
   {
+    // rows and columns are switched
+    // the maze tutorial did it like that so i just kept it
     x = row * size;
-    y = col * size;
+    y = 50 + col * size;
     thisRow = row;
     thisCol = col;
     this.rgb = rgb;
@@ -27,11 +29,10 @@ public class Block
       isEmpty = false;
     }
   }
-
   public Block(int row, int col, int[] rgb) 
   {
     x = row * size;
-    y = col * size;
+    y = 50 + col * size;
     thisRow = row;
     thisCol = col;
     this.rgb = rgb;
@@ -46,14 +47,13 @@ public class Block
     }
   }
 
-  // from maze tutorial
   public void show() 
   {
     strokeWeight(4);
     /*
     line(x, y, x + size, y);
     line(x + size, y, x + size, y + size);
-    line(x + size, y + size, x, y + size);      
+    line(x + size, y + size, x, y + size);
     line(x, y + size, x, y);
     noStroke();
     fill(0, 0, 0, 0);
@@ -61,8 +61,7 @@ public class Block
     */
     rect(x, y, size, size);
   }
-
-  // from maze tutorial
+  
   public void addNeighbors() 
   {
     if (thisRow > 0 && blocks[thisRow - 1][thisCol].isEmpty) 
@@ -86,9 +85,11 @@ public class Block
       neighbors.add(blocks[thisRow][thisCol - 1]); //right neighbor
     }
   }
-
-
-
+  public ArrayList<Block> getNeighbors()
+  {
+    return neighbors;
+  }
+  
   public boolean sameColor(Block b)
   {
     if(rgb[0] == b.rgb[0] && rgb[1] == b.rgb[1] && rgb[2] == b.rgb[2])
@@ -100,14 +101,6 @@ public class Block
       return false;
     }
   }
-
-  public void print()
-  {
-    System.out.println("Row: " + thisRow + "\nCol: " + thisCol);
-  }
-
-
-
   public boolean isEmpty()
   {
     return isEmpty;
@@ -115,6 +108,11 @@ public class Block
   public boolean isEnd()
   {
     return isEnd;
+  }
+  
+  public void print()
+  {
+    System.out.println("Row: " + thisRow + "\nCol: " + thisCol);
   }
   public int getX()
   {
@@ -136,4 +134,5 @@ public class Block
   {
     return rgb;
   }
+  
 }
