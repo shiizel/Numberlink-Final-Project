@@ -38,7 +38,7 @@ public class Solver
   {
     boolean foundStart = false;
 
-    // check for if start is null in generator
+    // check for if start is null for generator later
     Block start = null;
     for(int i = 0; i < grid.length; i++)
     {
