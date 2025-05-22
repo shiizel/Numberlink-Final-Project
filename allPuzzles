@@ -1,0 +1,77 @@
+public class allPuzzles
+{
+  Block[][][] puzzles;
+  public allPuzzles()
+  {
+    puzzles = new Block[3][][];
+    
+    puzzles[0] = new Block[7][7];
+    for(int r = 0; r < 7; r++)
+    {
+      for(int c = 0; c < 7; c++)
+      {
+        puzzles[0][r][c] = new Block(r, c, new int[]{255, 255, 255});
+      }
+    }
+    puzzles[0][4][2] = new Block(4, 2, new int[]{255, 0, 0}, true);
+    puzzles[0][2][5] = new Block(2, 5, new int[]{255, 0, 0}, true);
+      
+    puzzles[0][0][6] = new Block(0, 6, new int[]{0, 255, 0}, true);
+    puzzles[0][4][1] = new Block(4, 1, new int[]{0, 255, 0}, true);
+     
+    puzzles[0][3][2] = new Block(3, 2, new int[]{0, 0, 255}, true);
+    puzzles[0][1][1] = new Block(1, 1, new int[]{0, 0, 255}, true);
+      
+    puzzles[0][3][0] = new Block(3, 0, new int[]{255, 255, 0}, true);
+    puzzles[0][4][6] = new Block(4, 6, new int[]{255, 255, 0}, true);
+      
+    puzzles[0][5][1] = new Block(5, 1, new int[]{0, 255, 255}, true);
+    puzzles[0][3][3] = new Block(3, 3, new int[]{0, 255, 255}, true);
+    
+    puzzles[1] = new Block[5][5];
+    for(int r = 0; r < 5; r++)
+    {
+      for(int c = 0; c < 5; c++)
+      {
+        puzzles[1][r][c] = new Block(r, c, new int[]{255, 255, 255});
+        
+      }
+    }
+    puzzles[1][3][0] = new Block(3, 0, new int[]{255, 0, 0}, true);
+    puzzles[1][2][4] = new Block(2, 4, new int[]{255, 0, 0}, true);
+      
+    puzzles[1][1][1] = new Block(1, 1, new int[]{0, 255, 0}, true);
+    puzzles[1][4][4] = new Block(4, 4, new int[]{0, 255, 0}, true);
+     
+    puzzles[1][2][1] = new Block(2, 1, new int[]{0, 0, 255}, true);
+    puzzles[1][4][3] = new Block(4, 3, new int[]{0, 0, 255}, true);
+      
+    puzzles[1][4][0] = new Block(4, 0, new int[]{255, 255, 0}, true);
+    puzzles[1][3][1] = new Block(3, 1, new int[]{255, 255, 0}, true);
+    
+    puzzles[2] = new Block[4][4];
+    for(int r = 0; r < 4; r++)
+    {
+      for(int c = 0; c < 4; c++)
+      {
+        puzzles[2][r][c] = new Block(r, c, new int[]{255, 255, 255}, false);
+      }
+    }
+    // red
+    puzzles[2][0][0] = new Block(0, 0, new int[]{255, 0, 0}, true);
+    puzzles[2][3][3] = new Block(3, 3, new int[]{255, 0, 0}, true);
+      
+    // blue
+    puzzles[2][0][1] = new Block(0, 1, new int[]{0, 0, 255}, true);
+    puzzles[2][2][2] = new Block(2, 2, new int[]{0, 0, 255}, true);
+      
+    // green
+    puzzles[2][1][2] = new Block(1, 2, new int[]{0, 255, 0}, true);
+    puzzles[2][2][1] = new Block(2, 1, new int[]{0, 255, 0}, true);
+  }
+  
+  public Block[][] puzzle(int i)
+  {
+    return puzzles[i];
+  }
+}
