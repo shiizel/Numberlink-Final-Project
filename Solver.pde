@@ -43,14 +43,14 @@ public class Solver
 
     // check for if start is null for generator later
     Block start = null;
-    for(int i = 0; i < grid.length; i++)
+    for(int r = 0; r < grid.length; r++)
     {
-      for(int j = 0; j < grid[i].length; j++)
+      for(int c = 0; c < grid[r].length; c++)
       {
-        if(!grid[i][j].isEmpty() && grid[i][j].isEnd() && solution[i][j].isEmpty())
+        if(!grid[r][c].isEmpty() && grid[r][c].isEnd() && solution[r][c].isEmpty())
         {
-          start = grid[i][j];
-          DFS(i, j, start);
+          start = grid[r][c];
+          DFS(r, c, start);
           foundStart = true;
           break;
         }
