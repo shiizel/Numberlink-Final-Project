@@ -4,7 +4,6 @@
 public class Solver
 {
   private Block[][] grid;
-  private int[][] turns = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
   private int rows;
   private int cols;
   private Block[][] solution;
@@ -37,93 +36,87 @@ public class Solver
     }
   }
   
-  public Block[][] initSolver() 
+  public Block[][] completeFlow() 
   {
-    boolean foundStart = false;
-
-    // check for if start is null for generator later
-    Block start = null;
+    Block start = grid[1][1];
+    int minMoves = 5;
     for(int r = 0; r < grid.length; r++)
     {
       for(int c = 0; c < grid[r].length; c++)
       {
         if(!grid[r][c].isEmpty() && grid[r][c].isEnd() && solution[r][c].isEmpty())
         {
-          start = grid[r][c];
-          DFS(r, c, start);
-          foundStart = true;
-          break;
+          if(grid[r][c].neighbors.size() < minMoves)
+          {
+            minMoves = grid[r][c].neighbors.size();
+            start = grid[r][c];
+          }
         }
       }
-      if(foundStart)
-      {
-        break;
-      }
     }
+    findLink(start.getRow(), start.getCol(), start);
     
+    // if there is a valid solution that fulfills all the conditions (all blocks filled, 
+    // all pairs found a link, no intersections, etc.) then it returns the solution
+    // if not it returns the original flow grid
     return solution;
   }
   
-  private void DFS(int currRow, int currCol, Block start)
+  private void findLink(int currRow, int currCol, Block start)
   {
     solution[currRow][currCol] = new Block(currRow, currCol, start.getRGB());
     // checks up down left right
-    for(int[] myTurn : turns)
+    ArrayList<Block> myTurns = possibleTurns(grid[currRow][currCol]);
+    
+    for(int i = 0; i < myTurns.size(); i++)
     {
-      int nextRow = currRow + myTurn[0];
-      int nextCol = currCol + myTurn[1];
+      int nextRow = myTurns.get(i).getRow();
+      int nextCol = myTurns.get(i).getCol();
       // if (nextRow, nextCol) is a place on the grid and is unmarked in the solution
-      if(inBounds(nextRow, nextCol))
+      // if (nextRow, nextCol) is empty then it is a potential path / solution
+      if(grid[nextRow][nextCol].isEmpty())
       {
-        if(solution[nextRow][nextCol].isEmpty())
+        findLink(nextRow, nextCol, start);
+        // needs to return after DFS otherwise it would continue to go down and reset
+        if(solved)
         {
-          // if (nextRow, nextCol) is empty then it is a potential path / solution
-          if(grid[nextRow][nextCol].isEmpty())
+          return;
+        }
+      }
+      // checks (nextRow, nextCol) is the second end of the flow
+      else if(grid[nextRow][nextCol].sameColor(start) && grid[nextRow][nextCol].isEnd())
+      {
+        solution[nextRow][nextCol] = new Block(nextRow, nextCol, start.getRGB());
+        if(numBlocksFilled() == rows * cols)
+        {
+          solved = true;
+          return;
+        }
+        else
+        {
+          // finds new flow pair to backtrack
+          for(int r = 0; r < grid.length; r++)
           {
-            DFS(nextRow, nextCol, start);
-            if(solved)
+            for(int c = 0; c < grid[r].length; c++)
+            if(!grid[r][c].isEmpty() && grid[r][c].isEnd() && !grid[r][c].sameColor(start) && 
+            solution[r][c].isEmpty())
             {
-              return;
-            }
-          }
-          // checks (nextRow, nextCol) is the second end of the flow
-          else if(grid[nextRow][nextCol].sameColor(start) && grid[nextRow][nextCol].isEnd())
-          {
-            solution[nextRow][nextCol] = new Block(nextRow, nextCol, start.getRGB());
-            if(numBlocksFilled() == rows * cols)
-            {
-              solved = true;
-              return;
-            }
-            else
-            {
-              // finds new flow pair to backtrack
-              for(int r = 0; r < grid.length; r++)
+              Block b = grid[r][c];
+              findLink(r, c, b);
+              if(solved)
               {
-                for(int c = 0; c < grid[r].length; c++)
-                {
-                  if(!grid[r][c].isEmpty() && grid[r][c].isEnd() && !grid[r][c].sameColor(start) && 
-                  solution[r][c].isEmpty())
-                  {
-                    Block b = grid[r][c];
-                    DFS(r, c, b);
-                    if(solved)
-                    {
-                      return;
-                    }
-                  }
-                }
+                return;
               }
-              // if it goes through and found no flows but there are still empty blocks
-              // or if it found other flows that could not connect then it backtracks
-                solution[nextRow][nextCol] = new Block(nextRow, nextCol, new int[]{255, 255, 255});
             }
           }
         }
+        // if it goes through and found no flows but there are still empty blocks
+        // or if it found other flows that could not connect then it backtracks
+        solution[nextRow][nextCol] = new Block(nextRow, nextCol, new int[]{255, 255, 255});
       }
     }
     // no possible turns --> backtrack
-      solution[currRow][currCol] = new Block(currRow, currCol, new int[]{255, 255, 255});
+    solution[currRow][currCol] = new Block(currRow, currCol, new int[]{255, 255, 255});
   }
     
   private int numBlocksFilled()
@@ -141,7 +134,41 @@ public class Solver
     }
     return numBlocksFilled;
   }
+  public ArrayList<Block> possibleTurns(Block thisBlock)
+  {
+    int[][] turns = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    ArrayList<Block> possibleTurns = new ArrayList<Block>();
+    for(int[] myTurn : turns)
+    {
+      int nextRow = thisBlock.getRow() + myTurn[0];
+      int nextCol = thisBlock.getCol() + myTurn[1];
+      if(inBounds(nextRow, nextCol) && solution[nextRow][nextCol].isEmpty())
+      {
+        possibleTurns.add(grid[nextRow][nextCol]);
+      }
+    }
+    return possibleTurns;
+  }
+  
+  /*
+  private int heuristic(Block start, Block end)
+  {
+    return Math.abs(start.getRow() - end.getRow()) / Math.abs(start.getCol() - start.getCol());
+  }
+  */
 }
+
+
+
+
+
+
+
+
+
+
+
 /*
 public class Solver 
 {
@@ -166,16 +193,9 @@ public class Solver
     }
   }
 
-   private boolean inBounds(int r, int c) 
+  private boolean inBounds(int r, int c) 
   {
-    if(0 <= r && r < rows && 0 <= c && c < cols)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    return 0 <= r && r < rows && 0 <= c && c < cols;
   }
 
   public Block[][] completeFlow() 
