@@ -7,7 +7,7 @@ public Block[][] blocks;
 // store for generator
 
 private Block[][] mySolution;
-private int[] currColor = new int[3];
+private int[] currColor = new int[]{255, 255, 255};
 
 private Solver s;
 
