@@ -12,10 +12,10 @@ private Solver s;
 public void setup() 
 {
   puzzles = new allPuzzles();
-  blocks = puzzles.puzzle(3);
+  blocks = puzzles.puzzle(1);
   // *** MUST CHANGE SIZE MANUALLY ***
   // cant use variables for some reason not sure why
-  size(200, 250);
+  size(350, 400);
   
   rows = floor((height - 50) / size);
   cols = floor(width / size);
