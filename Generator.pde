@@ -1,6 +1,8 @@
 // https://puzzlemadness.co.uk/howwemakenumberlink/
-// this is very very not done
-// not optimized at all because not done
+
+// this is very very not done, could probably finish by friday 
+// honestly if i really tried
+// also not optimized at all because not done
 
 public class Generator
 {
