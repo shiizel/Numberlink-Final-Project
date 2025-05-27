@@ -1,15 +1,15 @@
-// using cost to come or heuristic shaves of a significant amount of time 
-// (15 s --> less than 1 s for 7 x 7)
-// can solve up to 8 x 8 quickly
-// 9 x 9 noticeably starts to take a while but still works (~45 s)
-// anything after that takes too long
-
 // very loosely based on this recursive maze solver algorithm and a sudoku 
 // solver i saw a while ago:
 // https://en.wikipedia.org/wiki/Maze-solving_algorithm
 // basically just this but each link recurses rather than the whole maze
 // instead of using a boolean[][] to check availability i  check if the 
 // block is empty
+
+// using the heuristic (shortest link first) shaves of a significant amount of time 
+// (15 s --> less than 1 s for 7 x 7)
+// can solve up to 8 x 8 quickly
+// 9 x 9 noticeably starts to take a while but still works (~45 s)
+// anything after that takes too long
 
 // possible constraints to make more efficient:
 // https://mzucker.github.io/2016/08/28/flow-solver.html#priorwork
