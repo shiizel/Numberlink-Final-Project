@@ -1,3 +1,7 @@
+// tutorial for basic setup:
+// https://www.youtube.com/watch?v=zsG2ceOlY6I
+// the show() method, addNeighbors() method and Block() constructor 
+// are kept from maze tutorial
 public class Block 
 {
   private int x;
@@ -9,11 +13,13 @@ public class Block
   private int[] rgb;
 
   private ArrayList<Block> neighbors = new ArrayList<Block>();
-
+  
+  // added rgb, isEnd, and isEmpty variables
   public Block(int row, int col, int[] rgb, boolean isEnd) 
   {
     // rows and columns are switched
     // the maze tutorial did it like that so i just kept it
+    // better to think of rows and cols as x-axis and y-axis
     x = row * size;
     y = 50 + col * size;
     thisRow = row;
@@ -29,24 +35,8 @@ public class Block
       isEmpty = false;
     }
   }
-  public Block(int row, int col, int[] rgb) 
-  {
-    x = row * size;
-    y = 50 + col * size;
-    thisRow = row;
-    thisCol = col;
-    this.rgb = rgb;
-    this.isEnd = false;
-    if(rgb[0] == 255 && rgb[1] == 255 && rgb[2] == 255)
-    {
-      isEmpty = true;
-    }
-    else
-    {
-      isEmpty = false;
-    }
-  }
 
+  // tried doing fill() in here but it gave it a delay
   public void show() 
   {
     strokeWeight(4);
@@ -66,28 +56,20 @@ public class Block
   {
     if (thisRow > 0 && blocks[thisRow - 1][thisCol].isEmpty) 
     { 
-      //we are not in top row. Add top neighbor.
-      neighbors.add(blocks[thisRow - 1][thisCol]); //top neighbor
+      neighbors.add(blocks[thisRow - 1][thisCol]); // up 
     }
     if (thisCol < cols - 1 && blocks[thisRow][thisCol + 1].isEmpty) 
     { 
-      //we are not in rightmost column. Add right column.
-      neighbors.add(blocks[thisRow][thisCol + 1]); //right neighbor
+      neighbors.add(blocks[thisRow][thisCol + 1]); //right
     }
     if (thisRow < rows - 1 && blocks[thisRow + 1][thisCol].isEmpty) 
     { 
-      //we are not in bottom row. Add bottom neighbor.
-      neighbors.add(blocks[thisRow + 1][thisCol]); //bottom neighbor
+      neighbors.add(blocks[thisRow + 1][thisCol]); // down
     }
     if (thisCol > 0 && blocks[thisRow][thisCol - 1].isEmpty) 
     { 
-      //we are not in leftmost column. Add left column.
-      neighbors.add(blocks[thisRow][thisCol - 1]); //right neighbor
+      neighbors.add(blocks[thisRow][thisCol - 1]); // left
     }
-  }
-  public ArrayList<Block> getNeighbors()
-  {
-    return neighbors;
   }
   
   public boolean sameColor(Block b)
@@ -108,11 +90,6 @@ public class Block
   public boolean isEnd()
   {
     return isEnd;
-  }
-  
-  public void print()
-  {
-    System.out.println("Row: " + thisRow + "\nCol: " + thisCol);
   }
   public int getX()
   {
@@ -135,4 +112,9 @@ public class Block
     return rgb;
   }
   
+  // for testing
+  public void print()
+  {
+    System.out.println("Row: " + thisRow + "\nCol: " + thisCol);
+  }
 }
