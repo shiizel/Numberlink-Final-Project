@@ -1,10 +1,7 @@
-// https://www.youtube.com/watch?v=zsG2ceOlY6I
-
 private int cols;
 private int rows;
 private int size = 50;
-// maze tutorial used blocks in the Block class
-public Block[][] blocks;
+private Block[][] blocks;
 // store for generator
 private allPuzzles puzzles;
 
@@ -15,9 +12,10 @@ private Solver s;
 public void setup() 
 {
   puzzles = new allPuzzles();
-  blocks = puzzles.puzzle(0);
-  // wont let me use variables for some reason
-  size(350, 400);
+  blocks = puzzles.puzzle(3);
+  // *** MUST CHANGE SIZE MANUALLY ***
+  // cant use variables for some reason not sure why
+  size(200, 250);
   
   rows = floor((height - 50) / size);
   cols = floor(width / size);
@@ -52,28 +50,24 @@ public void draw()
   text("Show Answer", (width - 130) / 2 + 8, 30);
 }
 
-void mouseClicked()
+public void mouseClicked()
 {
   for(int r = 0; r < rows; r++)
   {
     for(int c = 0; c < cols; c++)
     {
-      if(blocks[r][c].isEnd())
+      Block b = blocks[r][c];
+      if(mouseX >= b.getX() && mouseX < b.getX() + size && mouseY >= b.getY() && mouseY < b.getY() + size)
       {
-        Block a = blocks[r][c];
-        if(mouseX >= a.getX() && mouseX < a.getX() + size && mouseY >= a.getY() && mouseY < a.getY() + size)
+        if(blocks[r][c].isEnd())
         {
-          currColor = a.getRGB();
-        }   
-      }
-      if(!blocks[r][c].isEnd)
-      {
-        Block b = blocks[r][c];
-        if(mouseX >= b.getX() && mouseX < b.getX() + size && mouseY >= b.getY() && mouseY < b.getY() + size)
+          currColor = b.getRGB();
+        }
+        else
         {
           blocks[r][c] = new Block(r, c, currColor, false);
           fill(currColor[0], currColor[1], currColor[2]);
-          square(b.getX(), b.getY(), size);
+          b.show();
         }
       }
     }
@@ -88,7 +82,7 @@ void mouseClicked()
         {
           Block b = mySolution[r][c];
           fill(b.getRGB()[0], b.getRGB()[1], b.getRGB()[2]);
-          square(b.getX(), b.getY(), size);
+          b.show();
         }
       }
     }
