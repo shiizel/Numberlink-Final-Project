@@ -1,4 +1,5 @@
-// for the generator but honestly i probably dont need it
+// made this after the generator so block still uses an int[]
+// probably dont need this honestly
 
 public class Color
 {
